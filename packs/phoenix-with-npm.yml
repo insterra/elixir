@@ -1,0 +1,90 @@
+name: phoenix-with-npm
+type: template
+description: Phoenix with npm
+frameworks: [phoenix, elixir]
+visibility: public
+dependencies: [
+  {type: build, name: elixir},
+  {type: build, name: npm},
+  {type: runtime, name: bash},
+  {type: runtime, name: curl},
+  {type: runtime, name: s6},
+  {type: runtime, name: jq},
+  {type: runtime, name: ca-certificates}
+]
+sections:
+- name: build
+  description: |
+    Build configuration for phoenix app with npm
+  attributes:
+    destination: [
+      "_build/prod/rel/{{name}}/*"
+    ]
+    command: |
+      export MIX_ENV=prod
+
+      mix local.hex --force
+      mix local.rebar --force
+      mix do deps.get --only prod
+
+      npm --prefix ./assets install ./assets
+
+      mix assets.deploy
+
+      mix release
+- name: run
+  description: |
+    This section tells the builder how to run this applications. The `commands` will be exposed to you the user in the container.
+
+    You can call the commands by typing `rc-service {{name}} [command]`. 
+
+    - `rc-service {{name}} migrate`
+    - `rc-service {{name}} console`
+    - `rc-service {{name}} logs
+
+    This section assumes you have a module {{camelcase_name}}.Release.Tasks setup that runs your migrations.
+  attributes:
+    name: "{{name}}"
+    commands: [
+      { name: migrate, binary: "{{name}}", call: "eval '{{camelcase_name}}.Release.Tasks.migrate'"},
+      { name: console, binary: "{{name}}", call: remote},
+      { name: logs, binary: tail, path: "/usr/bin", call: "-f -n 100 /var/log/{{name}}/current"}
+    ]
+    services: [
+      { name: web, binary: "{{name}}", start: {call: "start"} }
+    ]
+- name: hook
+  description: |
+    Hooks are commands that run at different stage of the package lifecycle.
+
+    We will add the app to the rc-update so that it will start on boot.
+  attributes:
+    pre-upgrade: |
+      rc-service {{name}} stop
+    post-install: |
+      rc-update add {{name}}
+      rc-service {{name}} migrate
+    post-upgrade: |
+      rc-service {{name}} migrate
+      rc-service {{name}} start
+    post-deinstall: |
+      rc-service {{name}} stop
+      rc-update del {{name}}
+- name: kit
+  description: |
+    Web service kit will enable service on port 4000 and provision the database automatically for your application.
+
+    The `generic/secret` driver will automatically generate secret with the length `128` character to be used as your `SECRET_KEY_BASE`
+  attributes:
+    name: "web"
+    description: "web service"
+    main: true
+    ports: [
+      { name: "web", target: 4000, main: true }
+    ]
+    variables: [
+      { key: "PHX_SERVER", default_value: "true" },
+      { key: "SECRET_KEY_BASE", driver: "generic/secret", driver_options: { length: 128 } }
+    ]
+
+
