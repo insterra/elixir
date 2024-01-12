@@ -18,6 +18,8 @@ sections:
     Build configuration for phoenix app. 
 
     If you are using npm with your phoenix deployment uncomment the `npm` line.
+
+    If you are deploying a standard elixir app without phoenix comment the `mix assets.deploy` line.
   attributes:
     destination: [
       "_build/prod/rel/{{name}}/*"
