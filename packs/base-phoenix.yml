@@ -1,4 +1,4 @@
-name: phoenix-with-npm
+name: base-phoenix
 type: template
 description: Phoenix with npm
 frameworks: [phoenix, elixir]
@@ -15,7 +15,9 @@ dependencies: [
 sections:
 - name: build
   description: |
-    Build configuration for phoenix app with npm
+    Build configuration for phoenix app. 
+
+    If you are using npm with your phoenix deployment uncomment the `npm` line.
   attributes:
     destination: [
       "_build/prod/rel/{{name}}/*"
@@ -27,7 +29,7 @@ sections:
       mix local.rebar --force
       mix do deps.get --only prod
 
-      npm --prefix ./assets install ./assets
+      # npm --prefix ./assets install ./assets
 
       mix assets.deploy
 

@@ -1,6 +1,6 @@
 name: postgresql
 type: extension
-parent_name: phoenix-with-npm
+parent_name: base-phoenix
 description: Postgresql extension for phoenix-with-npm
 frameworks: [postgrex]
 visibility: public
