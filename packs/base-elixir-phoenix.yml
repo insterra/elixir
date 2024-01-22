@@ -13,6 +13,10 @@ dependencies: [
   {type: runtime, name: ca-certificates}
 ]
 sections:
+- name: dependencies
+  description: Enable dependency tracing
+  attributes: 
+    trace: true
 - name: build
   description: |
     Build configuration for phoenix app. 
