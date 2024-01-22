@@ -1,7 +1,7 @@
 name: postgresql
 type: extension
-parent_name: base-phoenix
-description: Postgresql extension for phoenix-with-npm
+parent_name: base-elixir-phoenix
+description: Postgresql extension for elixir-phoenix
 frameworks: [postgrex]
 visibility: public
 service_requirements: [
@@ -19,5 +19,5 @@ sections:
   attributes:
     name: web
     variables: [
-      { key: "DATABASE", driver: "database/postgresql" }
+      { key: "DATABASE", driver: "database/postgresql", default_value: "ecto:///" }
     ]

@@ -1,4 +1,4 @@
-name: base-phoenix
+name: base-elixir-phoenix
 type: template
 description: Phoenix with npm
 frameworks: [phoenix, elixir]
@@ -33,6 +33,7 @@ sections:
 
       # npm --prefix ./assets install ./assets
 
+      # Comment out mix assets.deploy for non phoenix apps
       mix assets.deploy
 
       mix release
@@ -81,7 +82,7 @@ sections:
     The `generic/secret` driver will automatically generate secret with the length `128` character to be used as your `SECRET_KEY_BASE`
   attributes:
     name: "web"
-    description: "web service"
+    description: "Web service"
     main: true
     ports: [
       { name: "web", target: 4000, main: true }
