@@ -4,13 +4,13 @@ description: Elixir / Phoenix build pack configuration.
 frameworks: [phoenix, elixir]
 visibility: public
 dependencies: [
-  {type: build, name: elixir},
-  {type: build, name: npm},
-  {type: runtime, name: bash},
-  {type: runtime, name: curl},
-  {type: runtime, name: s6},
-  {type: runtime, name: jq},
-  {type: runtime, name: ca-certificates}
+  {type: build, main: true, package_name: elixir},
+  {type: build, package_name: npm},
+  {type: runtime, package_name: bash},
+  {type: runtime, package_name: curl},
+  {type: runtime, package_name: s6},
+  {type: runtime, package_name: jq},
+  {type: runtime, package_name: ca-certificates}
 ]
 sections:
 - name: dependencies
