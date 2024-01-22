@@ -45,13 +45,13 @@ sections:
   description: |
     This section tells the builder how to run this applications. The `commands` will be exposed to you the user in the container.
 
-    You can call the commands by typing `rc-service {{name}} [command]`. 
+    You can call the commands by typing `rc-service example-app [command]`. 
 
-    - `rc-service {{name}} migrate`
-    - `rc-service {{name}} console`
-    - `rc-service {{name}} logs
+    - `rc-service example-app migrate`
+    - `rc-service example-app console`
+    - `rc-service example-app logs`
 
-    This section assumes you have a module {{camelcase_name}}.Release.Tasks setup that runs your migrations.
+    This section assumes you have a module ExampleApp.Release.Tasks setup that runs your migrations.
   attributes:
     name: "{{name}}"
     commands: [
