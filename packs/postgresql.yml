@@ -15,7 +15,7 @@ sections:
     - DATABASE_URL
     - DATABASE_CERT_PEM
 
-    You can access these as env variables in your application
+    You can access these as env variables in your application.
   attributes:
     name: web
     variables: [
