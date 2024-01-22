@@ -1,6 +1,6 @@
 name: base-elixir-phoenix
 type: template
-description: Phoenix with npm
+description: Elixir / Phoenix build pack configuration.
 frameworks: [phoenix, elixir]
 visibility: public
 dependencies: [
