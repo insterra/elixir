@@ -84,6 +84,31 @@ sections:
     Web service kit will enable service on port 4000 and provision the database automatically for your application.
 
     The `generic/secret` driver will automatically generate secret with the length `128` character to be used as your `SECRET_KEY_BASE`
+
+    If you wish to use clustering we provide a libcluster strategy simple add it to your dependencies
+
+    ```elixir
+    def deps do
+      [
+        {:libcluster, "~> 3.0"},
+        {:libcluster_uplink, "~> 0.2.0"}
+      ]
+    end
+    ```
+
+    Then add the following to your config
+
+    ```elixir
+    config :libcluster,
+      topologies: [
+        example: [
+          strategy: Cluster.Strategy.Uplink,
+          config: [
+            app_name: "example-app"
+          ]
+        ]
+      ]
+    ```
   attributes:
     name: "web"
     description: "Web service"
