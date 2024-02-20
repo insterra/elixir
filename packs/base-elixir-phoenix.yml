@@ -25,7 +25,7 @@ sections:
 
     If you are deploying a standard elixir app without phoenix comment the `mix assets.deploy` line.
   attributes:
-    destination: [
+    destinations: [
       "_build/prod/rel/{{name}}/*"
     ]
     command: |
